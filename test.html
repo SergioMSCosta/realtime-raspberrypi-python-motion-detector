@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+</head>
+<body>
+	<div id="log"></div>
+	<script src="http://code.xrtml.org/xrtml-3.2.0.js"></script>
+	<script>
+		var appKey = 'YOUR_APP_KEY';
+		var authToken = 'abcdefg';
+		var url = 'http://ortc-developers.realtime.co/server/2.1';
+
+		xRTML.ready(function(){
+			xRTML.Config.debug = true;
+
+			xRTML.ConnectionManager.create({
+				appKey: appKey,
+				authToken: authToken,
+				url: url,
+				channels: [{name: 'motion:cam1'}]
+			}).bind({
+				message: function (e) {
+					var content = document.getElementById('log').innerHTML;
+					document.getElementById('log').innerHTML = content + '<br />' + new Date() + ' - ' + e.message;
+				}
+			});
+		});
+	</script>
+</body>
+</html>
